@@ -182,6 +182,10 @@ pub fn get_game_event_as_server() -> Option<ServerWrapper> {
     unsafe { ServerWrapper::try_new(GetGameEventAsServer()) }
 }
 
+pub fn get_current_game_state() -> Option<ServerWrapper> {
+    unsafe { ServerWrapper::try_new(GetCurrentGameState()) }
+}
+
 pub fn get_local_car() -> Option<CarWrapper> {
     unsafe { CarWrapper::try_new(GetLocalCar()) }
 }
@@ -222,6 +226,7 @@ extern "C" {
     
     fn GetOnlineGame() -> usize;
     fn GetGameEventAsServer() -> usize;
+    fn GetCurrentGameState() -> usize;
     fn GetLocalCar() -> usize;
     fn GetCamera() -> usize;
     fn GetEngine() -> usize;
