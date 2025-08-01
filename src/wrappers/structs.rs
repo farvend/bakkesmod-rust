@@ -210,6 +210,18 @@ impl Rotator {
     pub fn from(pitch: i32, yaw: i32, roll:i32) -> Rotator {
         Rotator { pitch, yaw, roll }
     }
+
+    pub fn get_pitch(&self) -> i32 {
+        self.pitch
+    }
+
+    pub fn get_yaw(&self) -> i32 {
+        self.yaw
+    }
+
+    pub fn get_roll(&self) -> i32 {
+        self.roll
+    }
 }
 
 
