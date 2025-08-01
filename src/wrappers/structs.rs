@@ -36,6 +36,32 @@ impl<T: UnrealPointer> RLArray<T> {
             T::from_ptr(*ptr)
         }
     }
+
+    pub fn iter(&self) -> RLArrayIterator<T> {
+        RLArrayIterator {
+            array: self,
+            current: 0,
+        }
+    }
+}
+
+pub struct RLArrayIterator<'a, T: UnrealPointer> {
+    array: &'a RLArray<T>,
+    current: isize,
+}
+
+impl<'a, T: UnrealPointer> Iterator for RLArrayIterator<'a, T> {
+    type Item = T;
+    
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.current < self.array.len() {
+            let item = self.array.get(self.current);
+            self.current += 1;
+            Some(item)
+        } else {
+            None
+        }
+    }
 }
 
 #[repr(C)]
@@ -97,6 +123,18 @@ impl ops::Add for Vector {
             x: self.x + rhs.x,
             y: self.y + rhs.y,
             z: self.z + rhs.z
+        }
+    }
+}
+
+impl ops::Sub for Vector {
+    type Output = Vector;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Vector {
+            x: self.x - rhs.x,
+            y: self.y - rhs.y,
+            z: self.z - rhs.z
         }
     }
 }
